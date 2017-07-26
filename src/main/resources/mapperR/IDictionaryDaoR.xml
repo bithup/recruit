@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.recruit.dao.read.IDictionaryDaoR">
+
+    <resultMap id="dictionary" type="com.xgh.recruit.entity.Dictionary">
+        <!--主键id-->
+        <id property="id" column="id" javaType="Long"/>
+        <!--公司id-->
+        <result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT"/>
+        <!--行业id-->
+        <result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT"/>
+        <!--种类-->
+        <result property="item" column="item" javaType="String" jdbcType="VARCHAR"/>
+        <!--行业编码-->
+        <result property="instCode" column="inst_code" javaType="String" jdbcType="VARCHAR"/>
+        <!--Key键-->
+        <result property="code" column="code" javaType="String" jdbcType="VARCHAR"/>
+        <!--value值-->
+        <result property="value" column="value" javaType="String" jdbcType="VARCHAR"/>
+        <!--创建时间-->
+        <result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP"/>
+        <!--更新时间-->
+        <result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP"/>
+        <!--备注-->
+        <result property="remark" column="remark" javaType="String" jdbcType="VARCHAR"/>
+        <!--1正常-1删除-->
+        <result property="status" column="status" javaType="int" jdbcType="INTEGER"/>
+        <!--冗余字段1-->
+        <result property="data1" column="data_1" javaType="long" jdbcType="BIGINT"/>
+        <!--冗余字段2-->
+        <result property="data2" column="data_2" javaType="int" jdbcType="INTEGER"/>
+        <!--冗余字段3-->
+        <result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR"/>
+        <!--冗余字段4-->
+        <result property="data4" column="data_4" javaType="String" jdbcType="VARCHAR"/>
+        <!--冗余字段5-->
+        <result property="data5" column="data_5" javaType="long" jdbcType="BIGINT"/>
+        <!--冗余字段8-->
+        <result property="data8" column="data_8" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <select id="get" resultMap="dictionary" parameterType="java.lang.Long">
+        SELECT
+        *
+        FROM
+        tb_dictionary
+        WHERE
+        id = #{id}
+        AND
+        status=1
+    </select>
+    <select id="getListPage" parameterType="hashmap" resultMap="dictionary">
+        SELECT
+        *
+        FROM
+        tb_dictionary
+        where inst_id = #{instId} and status = 1
+
+        limit ${(page-1)*pagesize},${pagesize}
+
+    </select>
+
+    <select id="getRows" parameterType="hashmap" resultType="long">
+        select
+        count(*) from
+        tb_dictionary
+        where status=1
+
+    </select>
+
+    <select id="getValue" parameterType="hashmap" resultType="String">
+        SELECT
+        value
+        FROM
+        tb_dictionary
+        WHERE
+        code = #{code}
+        AND
+        item=#{item}
+        AND
+        status=1
+    </select>
+
+</mapper>

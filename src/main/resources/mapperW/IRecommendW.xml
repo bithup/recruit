@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.recruit.dao.write.IRecommendDaoW">
+
+    <resultMap id="recommend" type="com.xgh.recruit.entity.Recommend">
+
+    <id property="id" column="id" javaType="Long" />
+
+    <result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+
+    <result property="kind" column="kind" javaType="int" jdbcType="INTEGER" />
+
+    <result property="context" column="context" javaType="String" jdbcType="VARCHAR" />
+
+    <result property="remart" column="remart" javaType="String" jdbcType="VARCHAR" />
+
+    <result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+
+    <result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+
+    <result property="adopt" column="adopt" javaType="int" jdbcType="INTEGER" />
+
+    <result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+
+    <result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+
+    <result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+
+    <result property="updateDate" column="updatedate" javaType="Date" jdbcType="TIMESTAMP" />
+</resultMap>
+
+
+    <update id="update" parameterType="com.xgh.recruit.entity.Recommend">
+        update tb_recommend
+        set
+        member_id = #{memberId,jdbcType=BIGINT},
+        kind = #{kind,jdbcType=INTEGER},
+        context = #{context,jdbcType=VARCHAR},
+        remart = #{remart,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+        adopt = #{adopt,jdbcType=INTEGER},
+        data_1 = #{data1,jdbcType=VARCHAR},
+        data_2 = #{data2,jdbcType=VARCHAR},
+        data_3 = #{data3,jdbcType=VARCHAR}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="long">
+        delete from
+        tb_recommend
+        where
+        id = #{id}
+    </delete>
+
+
+
+</mapper>

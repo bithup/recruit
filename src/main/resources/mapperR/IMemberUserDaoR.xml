@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.recruit.dao.read.IMemberUserDaoR">
+
+	<resultMap id="memberUserMap" type="com.xgh.recruit.entity.MemberUser">
+		<!--主键id-->
+		<id property="id" column="id" javaType="Long" />
+		<!--用户名-->
+		<result property="account" column="account" javaType="String" jdbcType="VARCHAR" />
+		<!--密码-->
+		<result property="password" column="password" javaType="String" jdbcType="VARCHAR" />
+		<!--真实姓名-->
+		<result property="realName" column="real_name" javaType="String" jdbcType="VARCHAR" />
+		<!--昵称-->
+		<result property="nickName" column="nick_name" javaType="String" jdbcType="VARCHAR" />
+		<!--性别：1男；2女-->
+		<result property="sex" column="sex" javaType="int" jdbcType="INTEGER" />
+		<!--头像路径-->
+		<result property="headPath" column="head_path" javaType="String" jdbcType="VARCHAR" />
+		<!--头像绝对路径-->
+		<result property="headRealPath" column="head_real_path" javaType="String" jdbcType="VARCHAR" />
+		<!--生日-->
+		<result property="birthday" column="birthday" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--工作年限-->
+		<result property="workYear" column="work_year" javaType="String" jdbcType="VARCHAR" />
+		<!--电话-->
+		<result property="telephone" column="telephone" javaType="String" jdbcType="VARCHAR" />
+		<!--邮箱-->
+		<result property="email" column="email" javaType="String" jdbcType="VARCHAR" />
+		<!--身份证号-->
+		<result property="idCard" column="id_card" javaType="String" jdbcType="VARCHAR" />
+		<!--居住地区域id-->
+		<result property="zoneId" column="zone_id" javaType="long" jdbcType="BIGINT" />
+		<!--居住地区域名称-->
+		<result property="zoneName" column="zone_name" javaType="String" jdbcType="VARCHAR" />
+		<!--详细居住地址-->
+		<result property="address" column="address" javaType="String" jdbcType="VARCHAR" />
+		<!--开放状态：1是；2否-->
+		<result property="isOpen" column="is_open" javaType="int" jdbcType="INTEGER" />
+		<!--自我评价-->
+		<result property="selfEvaluation" column="self_evaluation" javaType="String" jdbcType="VARCHAR" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--状态：-1删除；0取消；1正常-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段1-->
+		<result property="data1" column="data_1" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段2-->
+		<result property="data2" column="data_2" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段3-->
+		<result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段4-->
+		<result property="data4" column="data_4" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段5-->
+		<result property="data5" column="data_5" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段6-->
+		<result property="data6" column="data_6" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段7-->
+		<result property="data7" column="data_7" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段8-->
+		<result property="data8" column="data_8" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段9-->
+		<result property="data9" column="data_9" javaType="int" jdbcType="INTEGER" />
+		<!--最高学历(1专科2本科3硕士4博士)-->
+		<result property="education" column="education" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段11-->
+		<result property="data11" column="data_11" javaType="Double" jdbcType="DOUBLE" />
+		<!--备用字段12-->
+		<result property="data12" column="data_12" javaType="Double" jdbcType="DOUBLE" />
+	</resultMap>
+
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		 id,	account,	password,	real_name,	nick_name,	sex,	head_path,	head_real_path,	birthday,	work_year,	telephone,	email,	id_card,	zone_id,	zone_name,	address,	is_open,	self_evaluation,	create_date,	update_date,	status,	data_1,	data_2,	data_3,	data_4,	data_5,	data_6,	data_7,	data_8,	data_9,	education,	data_11,	data_12
+	</sql>
+
+	<select id="get" resultMap="memberUserMap" parameterType="java.lang.Long">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM tb_member_user
+		 WHERE id = #{id}
+	</select>
+
+	<select id="getListPage" parameterType="hashmap" resultMap="memberUserMap">
+		SELECT
+			*
+		FROM
+			tb_member_user m
+		WHERE m.status=1
+		<if test="account!=null and account!=''">
+			AND m.account LIKE CONCAT(CONCAT('%', #{account}), '%')
+		</if>
+		ORDER BY
+			m.create_date DESC
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			tb_member_user m
+		WHERE m.status=1
+		<if test="account!=null and account!=''">
+			AND m.account LIKE CONCAT(CONCAT('%', #{account}), '%')
+		</if>
+	</select>
+
+</mapper>

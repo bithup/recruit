@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.recruit.dao.read.ICompanyInfoDaoR">
+
+	<!--实体映射-->
+	<resultMap id="companyInfoMap" type="com.xgh.recruit.entity.CompanyInfo">
+		<!---->
+		<id property="id" column="id" javaType="Long" />
+		<!--公司名称-->
+		<result property="companyName" column="company_name" javaType="String" jdbcType="VARCHAR" />
+		<!--公司简称-->
+		<result property="shortName" column="short_name" javaType="String" jdbcType="VARCHAR" />
+		<!--企业账号-->
+		<result property="account" column="account" javaType="String" jdbcType="VARCHAR" />
+		<!--密码-->
+		<result property="password" column="password" javaType="String" jdbcType="VARCHAR" />
+		<!--行业id-->
+		<result property="industryId" column="industry_id" javaType="long" jdbcType="BIGINT" />
+		<!--行业名称-->
+		<result property="industryName" column="industry_name" javaType="String" jdbcType="VARCHAR" />
+		<!--公司性质-->
+		<result property="companyType" column="company_type" javaType="int" jdbcType="INTEGER" />
+		<!--公司规模-->
+		<result property="companySize" column="company_size" javaType="int" jdbcType="INTEGER" />
+		<!--公司所属区域id-->
+		<result property="zoneId" column="zone_id" javaType="long" jdbcType="BIGINT" />
+		<!--公司所属区域名称-->
+		<result property="zoneName" column="zone_name" javaType="String" jdbcType="VARCHAR" />
+		<!--公司详细地址-->
+		<result property="address" column="address" javaType="String" jdbcType="VARCHAR" />
+		<!--经度-->
+		<result property="gpsLongitude" column="gps_longitude" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--纬度-->
+		<result property="gpsLatitude" column="gps_latitude" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--公司介绍-->
+		<result property="intro" column="intro" javaType="String" jdbcType="VARCHAR" />
+		<!--公司邮箱-->
+		<result property="email" column="email" javaType="String" jdbcType="VARCHAR" />
+		<!--绑定手机号-->
+		<result property="mobile" column="mobile" javaType="String" jdbcType="VARCHAR" />
+		<!--联系电话-座机-->
+		<result property="telephone" column="telephone" javaType="String" jdbcType="VARCHAR" />
+		<!--联系人-->
+		<result property="contacts" column="contacts" javaType="String" jdbcType="VARCHAR" />
+		<!--企业官网地址-->
+		<result property="companyUrl" column="company_url" javaType="String" jdbcType="VARCHAR" />
+		<!--logo地址-->
+		<result property="logoPath" column="logo_path" javaType="String" jdbcType="VARCHAR" />
+		<!--logo绝对地址-->
+		<result property="logoRealPath" column="logo_real_path" javaType="String" jdbcType="VARCHAR" />
+		<!--三证路径-->
+		<result property="credentialsPath" column="credentials_path" javaType="String" jdbcType="VARCHAR" />
+		<!--三证绝对路径-->
+		<result property="credentialsRealPath" column="credentials_real_path" javaType="String" jdbcType="VARCHAR" />
+		<!--审核状态：0未审核；1通过；2未通过-->
+		<result property="isCheck" column="is_check" javaType="int" jdbcType="INTEGER" />
+		<!--认证状态：1认证；2未认证-->
+		<result property="isCertify" column="is_certify" javaType="int" jdbcType="INTEGER" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--状态：-1删除；0取消；1正常-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段1-->
+		<result property="data1" column="data_1" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段2-->
+		<result property="data2" column="data_2" javaType="long" jdbcType="BIGINT" />
+		<!--微信公众号-->
+		<result property="weixinNum" column="weixin_num" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段4-->
+		<result property="data4" column="data_4" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段5-->
+		<result property="data5" column="data_5" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段6-->
+		<result property="data6" column="data_6" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段7-->
+		<result property="data7" column="data_7" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段8-->
+		<result property="data8" column="data_8" javaType="String" jdbcType="VARCHAR" />
+		<!--是否推荐(首页)-->
+		<result property="isRecommend" column="is_recommend" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段10-->
+		<result property="data10" column="data_10" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段11-->
+		<result property="data11" column="data_11" javaType="Double" jdbcType="DOUBLE" />
+		<!--备用字段12-->
+		<result property="data12" column="data_12" javaType="Double" jdbcType="DOUBLE" />
+	</resultMap>
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		id AS id,
+		company_name AS companyName,
+		short_name AS shortName,
+		account AS account,
+		password AS password,
+		industry_id AS industryId,
+		industry_name AS industryName,
+		company_type AS companyType,
+		company_size AS companySize,
+		zone_id AS zoneId,
+		zone_name AS zoneName,
+		address AS address,
+		gps_longitude AS gpsLongitude,
+		gps_latitude AS gpsLatitude,
+		intro AS intro,
+		email AS email,
+		mobile AS mobile,
+		telephone AS telephone,
+		contacts AS contacts,
+		company_url AS companyUrl,
+		logo_path AS logoPath,
+		logo_real_path AS logoRealPath,
+		credentials_path AS credentialsPath,
+		credentials_real_path AS credentialsRealPath,
+		is_check AS isCheck,
+		is_certify AS isCertify,
+		create_date AS createDate,
+		update_date AS updateDate,
+		status AS status,
+		data_1 AS data1,
+		data_2 AS data2,
+		weixin_num AS weixinNum,
+		data_4 AS data4,
+		data_5 AS data5,
+		data_6 AS data6,
+		data_7 AS data7,
+		data_8 AS data8,
+		is_recommend AS isRecommend,
+		data_10 AS data10,
+		data_11 AS data11,
+		data_12 AS data12
+	</sql>
+
+	<select id="get" resultMap="companyInfoMap" parameterType="java.lang.Long">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM tb_company_info
+		 WHERE id = #{id}
+	</select>
+
+	<select id="getListPage" parameterType="hashmap" resultType="hashmap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		tb_company_info com
+		WHERE com.status=1
+		<if test="account!=null and account!=''">
+			AND com.account LIKE CONCAT(CONCAT('%', #{account}), '%')
+		</if>
+		<if test="isCheck!=null and isCheck!=''">
+			AND com.is_check = #{isCheck}
+		</if>
+		ORDER BY
+		com.create_date DESC
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="int">
+		SELECT
+		count(*)
+		FROM
+		tb_company_info com
+		WHERE com.status=1
+		<if test="account!=null and account!=''">
+			AND com.account LIKE CONCAT(CONCAT('%', #{account}), '%')
+		</if>
+		<if test="isCheck!=null and isCheck!=''">
+			AND com.is_check = #{isCheck}
+		</if>
+	</select>
+
+</mapper>

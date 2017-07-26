@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.recruit.dao.read.IKindsDaoR">
+
+	<resultMap type="com.xgh.recruit.entity.Kinds" id="kindsMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="nid" column="nid" javaType="long" jdbcType="BIGINT" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<result property="instCode" column="inst_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="code" column="code" javaType="string" jdbcType="VARCHAR" />
+		<result property="parentCode" column="parent_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="preCode" column="pre_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="spellName" column="spell_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="spellFirstName" column="spell_first_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="level" column="level" javaType="int" jdbcType="INTEGER" />
+		<result property="sportUrl" column="sport_url" javaType="string" jdbcType="VARCHAR"/>
+		<result property="sportRealUrl" column="sport_real_url" javaType="string" jdbcType="VARCHAR"/>
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="remark" column="remark" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data_1" javaType="long" jdbcType="BIGINT" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="kindsMap2">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="NID" column="nid" javaType="long" jdbcType="BIGINT" />
+		<result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="INST_ID" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<result property="INST_CODE" column="inst_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="CODE" column="code" javaType="string" jdbcType="VARCHAR" />
+		<result property="PARENT_CODE" column="parent_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="PRE_CODE" column="pre_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="NAME" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SPELL_NAME" column="spell_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SPELL_FIRST_NAME" column="spell_first_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="LEVEL" column="level" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="REMARK" column="remark" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_1" column="data_1" javaType="long" jdbcType="BIGINT" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="get" parameterType="long" resultMap="kindsMap">
+		select * from tb_kinds where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.xgh.recruit.entity.Kinds"
+			resultMap="kindsMap">
+		select * from
+		tb_kinds
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+			<if test="id!= null">
+				and id = #{id}
+			</if>
+		</trim>
+	</select>
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="kindsMap">
+		SELECT
+		*
+		FROM
+		tb_kinds
+		where parent_id = #{parentId} and inst_id = #{instId} and status = 1
+		order by ord desc
+		limit ${(page-1)*pagesize},${pagesize}
+
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_kinds
+        where status=1
+        AND
+        parent_id=#{parentId}
+	</select>
+
+
+	<select id="getChildTreeData" parameterType="hashmap" resultType="hashmap">
+		select
+		t.id as id,
+		t.parent_id as pid,
+		t.name as text,
+		t.level as level
+		from
+		tb_kinds t where inst_id = #{instId} and parent_id=#{parentId} and status = 1
+	</select>
+
+	<select id="getChildData" parameterType="hashmap" resultMap="kindsMap">
+		select
+		*
+		from
+		tb_kinds t where inst_id = #{instId} and parent_id=#{parentId} and status = 1
+	</select>
+
+
+	<select id="isHasChild" parameterType="long" resultType="long">
+		select
+		count(id)
+		from
+		tb_kinds
+		where parent_id = #{parentId}
+		AND
+		status=1
+	</select>
+</mapper>

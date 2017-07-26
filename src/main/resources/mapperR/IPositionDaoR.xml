@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.recruit.dao.read.IPositionDaoR">
+
+	<resultMap id="positionMap" type="com.xgh.recruit.entity.Position">
+		<!--主键id-->
+		<id property="id" column="id" javaType="Long" />
+		<!--企业id-->
+		<result property="companyId" column="company_id" javaType="long" jdbcType="BIGINT" />
+		<!--工作性质-->
+		<result property="jobType" column="job_type" javaType="int" jdbcType="INTEGER" />
+		<!--职位名称-->
+		<result property="jobName" column="job_name" javaType="String" jdbcType="VARCHAR" />
+		<!--职位类型id-->
+		<result property="jobKindsId" column="job_kinds_id" javaType="long" jdbcType="BIGINT" />
+		<!--职位类型名称-->
+		<result property="jobKindsName" column="job_kinds_name" javaType="String" jdbcType="VARCHAR" />
+		<!--招聘人数-->
+		<result property="recruitingNum" column="recruiting_num" javaType="int" jdbcType="INTEGER" />
+		<!--学历-->
+		<result property="qualification" column="qualification" javaType="int" jdbcType="INTEGER" />
+		<!--经验-->
+		<result property="experience" column="experience" javaType="int" jdbcType="INTEGER" />
+		<!--薪资待遇起点-->
+		<result property="salaryMin" column="salary_min" javaType="String" jdbcType="VARCHAR" />
+		<!--薪资终点-->
+		<result property="salaryMax" column="salary_max" javaType="String" jdbcType="VARCHAR" />
+		<!--（考虑到兼职）薪资类型：1月；2天；3小时-->
+		<result property="unit" column="unit" javaType="int" jdbcType="INTEGER" />
+		<!--职位描述-->
+		<result property="jobDescription" column="job_description" javaType="String" jdbcType="VARCHAR" />
+		<!--福利待遇-->
+		<result property="welfareTreatment" column="welfare_treatment" javaType="String" jdbcType="VARCHAR" />
+		<!--职位标签-->
+		<result property="positionLabel" column="position_label" javaType="String" jdbcType="VARCHAR" />
+		<!--技能要求-->
+		<result property="skillsRequirement" column="skills_requirement" javaType="String" jdbcType="VARCHAR" />
+		<!--工作所属区域id-->
+		<result property="zoneId" column="zone_id" javaType="long" jdbcType="BIGINT" />
+		<!--工作所属区域-->
+		<result property="zoneName" column="zone_name" javaType="String" jdbcType="VARCHAR" />
+		<!--工作地详细地址-->
+		<result property="address" column="address" javaType="String" jdbcType="VARCHAR" />
+		<!--是否接收简历：1是；2否-->
+		<result property="isReceive" column="is_receive" javaType="int" jdbcType="INTEGER" />
+		<!--职位状态：1正常；2冻结-->
+		<result property="positionStatus" column="position_status" javaType="int" jdbcType="INTEGER" />
+		<!--发布状态：1发布；2不发布-->
+		<result property="releaseStatus" column="release_status" javaType="int" jdbcType="INTEGER" />
+		<!--简历接收邮箱-->
+		<result property="receiveMailbox" column="receive_mailbox" javaType="String" jdbcType="VARCHAR" />
+		<!--联系电话-->
+		<result property="telephone" column="telephone" javaType="String" jdbcType="VARCHAR" />
+		<!--联系人-->
+		<result property="contacts" column="contacts" javaType="String" jdbcType="VARCHAR" />
+		<!--职位失效日期-->
+		<result property="expiryDate" column="expiry_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--审核状态：0未审核；1审核通过；2审核不通过-->
+		<result property="isCheck" column="is_check" javaType="int" jdbcType="INTEGER" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--状态：-1删除；0取消；1正常-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段1-->
+		<result property="data1" column="data_1" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段2-->
+		<result property="data2" column="data_2" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段3-->
+		<result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段4-->
+		<result property="data4" column="data_4" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段5-->
+		<result property="data5" column="data_5" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段6-->
+		<result property="data6" column="data_6" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段7-->
+		<result property="data7" column="data_7" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段8-->
+		<result property="data8" column="data_8" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段9-->
+		<result property="data9" column="data_9" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段10-->
+		<result property="data10" column="data_10" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段11-->
+		<result property="data11" column="data_11" javaType="Double" jdbcType="DOUBLE" />
+		<!--备用字段12-->
+		<result property="data12" column="data_12" javaType="Double" jdbcType="DOUBLE" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		 id,	company_id,	job_type,	job_name,	job_kinds_id,	job_kinds_name,	recruiting_num,	qualification,	experience,	salary_min,	salary_max,	unit,	job_description,	welfare_treatment,	position_label,	skills_requirement,	zone_id,	zone_name,	address,	is_receive,	position_status,	release_status,	receive_mailbox,	telephone,	contacts,	expiry_date,	is_check,	create_date,	update_date,	status,	data_1,	data_2,	data_3,	data_4,	data_5,	data_6,	data_7,	data_8,	data_9,	data_10,	data_11,	data_12
+	</sql>
+
+	<select id="get" resultMap="positionMap" parameterType="java.lang.Long">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM tb_position
+		 WHERE id = #{id}
+	</select>
+
+	<select id="getListPage" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			p.id,
+			p.address,
+			p.contacts,
+			p.create_date AS createDate,
+			p.experience,
+			p.expiry_date AS expiryDate,
+			p.is_receive AS isReceive,
+			p.job_description AS jobDescription,
+			p.job_kinds_name AS jobKindsName,
+			p.job_name AS jobName,
+			p.job_type AS jobType,
+			p.qualification,
+			p.recruiting_num AS recruitingNum,
+			p.skills_requirement AS skillsRequirement,
+			p.telephone,
+			p.unit,
+			p.welfare_treatment AS welfareTreatment,
+			p.zone_name AS zoneName,
+	  		p.is_check AS isCheck,
+			c.company_name AS companyName,
+		    c.is_check AS companyCheckType
+		FROM
+			tb_position p
+		LEFT JOIN tb_company_info c ON p.company_id = c.id
+		WHERE
+			p.`status` >= 0
+		<if test="jobName!=null and jobName!=''">
+			AND p.job_name LIKE '%${jobName}%'
+		</if>
+		<if test="isCheck!=null and isCheck!=''">
+			AND p.is_check = #{isCheck}
+		</if>
+		ORDER BY
+			p.create_date DESC
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM
+			tb_position p
+		WHERE
+			p.`status` >= 0
+		AND p.is_check = 0
+		<if test="jobName != null and jobName!=''">
+			AND p.job_name LIKE CONCAT(CONCAT('%', #{jobName}), '%')
+		</if>
+	</select>
+
+</mapper>

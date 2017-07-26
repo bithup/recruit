@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.recruit.dao.write.IDictionaryDaoW">
+
+    <resultMap id="dictionary" type="com.xgh.recruit.entity.Dictionary">
+        <!--主键id-->
+        <id property="id" column="id" javaType="Long"/>
+        <!--公司id-->
+        <result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT"/>
+        <!--行业id-->
+        <result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT"/>
+        <!--种类-->
+        <result property="item" column="item" javaType="String" jdbcType="VARCHAR"/>
+
+        <result property="instCode" column="inst_code" javaType="String" jdbcType="VARCHAR"/>
+        <!--Key键-->
+        <result property="code" column="code" javaType="String" jdbcType="VARCHAR"/>
+        <!--value值-->
+        <result property="value" column="value" javaType="String" jdbcType="VARCHAR"/>
+        <!--创建时间-->
+        <result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP"/>
+        <!--更新时间-->
+        <result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP"/>
+        <!--备注-->
+        <result property="remark" column="remark" javaType="String" jdbcType="VARCHAR"/>
+        <!--1正常-1删除-->
+        <result property="status" column="status" javaType="int" jdbcType="INTEGER"/>
+        <!--冗余字段1-->
+        <result property="data1" column="data_1" javaType="long" jdbcType="BIGINT"/>
+        <!--冗余字段2-->
+        <result property="data2" column="data_2" javaType="int" jdbcType="INTEGER"/>
+        <!--冗余字段3-->
+        <result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR"/>
+        <!--冗余字段4-->
+        <result property="data4" column="data_4" javaType="String" jdbcType="VARCHAR"/>
+        <!--冗余字段5-->
+        <result property="data5" column="data_5" javaType="long" jdbcType="BIGINT"/>
+        <!--冗余字段8-->
+        <result property="data8" column="data_8" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <insert id="add" parameterType="com.xgh.recruit.entity.Dictionary">
+        INSERT INTO tb_dictionary
+        (id,unit_id,inst_id,item,inst_code,code,value,create_date,update_date,remark,status,data_1,data_2,data_3,data_4,data_5,data_8)
+        VALUES
+        (#{id},#{unitId},#{instId},#{item},#{instCode},#{code},#{value},#{createDate},#{updateDate},#{remark},#{status},#{data1},#{data2},#{data3},#{data4},#{data5},#{data8})
+    </insert>
+
+
+    <update id="update" parameterType="com.xgh.recruit.entity.Dictionary">
+        UPDATE tb_dictionary
+        SET
+        unit_id = #{unitId},
+        inst_id = #{instId},
+        item = #{item},
+        inst_code = #{instCode},
+        code = #{code},
+        value = #{value},
+        create_date = #{createDate},
+        update_date = #{updateDate},
+        remark = #{remark},
+        status = #{status},
+        data_1 = #{data1},
+        data_2 = #{data2},
+        data_3 = #{data3},
+        data_4 = #{data4},
+        data_5 = #{data5},
+        data_8 = #{data8}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

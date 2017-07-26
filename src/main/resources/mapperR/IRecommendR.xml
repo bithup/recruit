@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.recruit.dao.read.IRecommendDaoR">
+
+    <resultMap id="recommend" type="com.xgh.recruit.entity.Recommend">
+
+    <id property="id" column="id" javaType="Long" />
+
+    <result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+
+    <result property="kind" column="kind" javaType="int" jdbcType="INTEGER" />
+
+    <result property="context" column="context" javaType="String" jdbcType="VARCHAR" />
+
+    <result property="remart" column="remart" javaType="String" jdbcType="VARCHAR" />
+
+    <result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+
+    <result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+
+    <result property="adopt" column="adopt" javaType="int" jdbcType="INTEGER" />
+
+    <result property="data1" column="data1" javaType="String" jdbcType="VARCHAR" />
+
+    <result property="data2" column="data2" javaType="String" jdbcType="VARCHAR" />
+
+    <result property="data3" column="data3" javaType="String" jdbcType="VARCHAR" />
+
+    <result property="updateDate" column="updatedate" javaType="Date" jdbcType="TIMESTAMP" />
+</resultMap>
+
+    <select id="get" parameterType="long" resultMap="recommend">
+        select * from tb_recommend where id = #{id} and status=1
+    </select>
+
+
+    <select id="getGridList" parameterType="hashmap" resultType="hashmap">
+    SELECT
+	t.id,
+	t.member_id,
+	t.kind,
+	t.context,
+	t.remart AS remark,
+	t.adopt,
+	t.create_date as createDate,
+	IFNULL(m.nick_name,'')AS nickName
+    FROM
+	tb_recommend t,tb_member_user m
+    WHERE
+    t.member_id=m.id
+    and
+	t.`status` = 1
+    AND t.kind = #{kind}
+    ORDER BY t.create_date DESC
+    limit ${(page-1)*pageSize},${pageSize};
+    </select>
+
+    <select id="getRows" parameterType="hashmap"  resultType="long">
+        select
+        count(*) from
+        tb_recommend
+        where kind=#{kind}
+    </select>
+
+    <select id="getListPage" parameterType="hashmap" resultType="hashmap">
+        select
+        r.id as id,
+        r.context as context,
+        r.create_date as createDate,
+        u.nick_name as nickName
+        from
+        tb_recommend r
+        LEFT JOIN tb_member_user u on r.member_id=u.id
+        where r.kind=#{kind}
+        and r.status=1
+        limit ${(page-1)*pageSize},${pageSize}
+    </select>
+
+
+</mapper>
